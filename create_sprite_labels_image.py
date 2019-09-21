@@ -73,43 +73,29 @@ def find_sprites(image=None, background_color=None):
     @background_color: optinal, whether tuple (RGB/ RGBA) or int (grayscale)
     """
 
-    def find_sprites_corners(sprite, label_map, numpy_array):
-        """ Find the coordinate of the top_left and bottom_right points
-
-        Return INT of corresponding coordinate (top_left_x, top_left_y)
-        and (bottom_right_x, bottom_right_y)
+    def collect_sprites(label_map, numpy_array):
         """
-        columns = set()
-        rows = set()
+        """
+        sprites = {}
+
         for row_index, row in enumerate(numpy_array):
             for column_index, column in enumerate(row):
                 current_pixel = label_map[row_index][column_index]
-                # Stores pixel's coordinate if it belongs to a sprite
-                if current_pixel.label == sprite:
-                    columns.add(current_pixel.column)
-                    rows.add(current_pixel.row)
-        return min(columns), min(rows), max(columns), max(rows)
+                label = current_pixel.label
+                if label != 0:
+                    if label not in sprites:
+                        sprites[label]={'columns':{current_pixel.column}, 'rows':{current_pixel.row}}
+                    else:
+                        sprites[label]['columns'].add(current_pixel.column)
+                        sprites[label]['rows'].add(current_pixel.row)
 
-    def collect_sprites(exist_sprites_label, label_map, numpy_array):
-        """ Return A dictionary with
-                key:the label of a sprite
-                value:it's Sprite object
-        """
-        sprites = {}
-        for sprite in exist_sprites_label:
-            top_left_column, top_left_row, bottom_right_column, bottom_right_row = find_sprites_corners(sprite, label_map, numpy_array)
-            sprites[sprite] = Sprite(sprite, top_left_column,
-                                     top_left_row, bottom_right_column,
-                                     bottom_right_row)
+        for sprite in sprites:
+            sprites[sprite] = Sprite(sprite, min(sprites[sprite]['columns']),
+                                     min(sprites[sprite]['rows']),
+                                     max(sprites[sprite]['columns']),
+                                     max(sprites[sprite]['rows']))
+
         return sprites
-
-    def search_exist_sprites_label(pixels_to_sprites):
-        """ Return a set of exist sprite's label inside the map
-        """
-        exist_sprites = set()
-        for key in pixels_to_sprites:
-            exist_sprites.add(pixels_to_sprites[key])
-        return exist_sprites
 
     def unify_sprites(pixels_to_sprites, unified_matrix, numpy_array):
         """ Unify all pixels that are in a same sprite
@@ -269,10 +255,8 @@ def find_sprites(image=None, background_color=None):
     pixels_to_sprites = analyze_connected_sprites(connected_sprites)
     # Map of sprites under format 2D-matrix
     label_map = unify_sprites(pixels_to_sprites, pixels_matrix, numpy_array)
-    # Set of sprite-label that exist inside the map
-    exist_sprites_label = search_exist_sprites_label(pixels_to_sprites)
     # A dictionary with key:the label of a sprite and value:it's Sprite object
-    sprites = collect_sprites(exist_sprites_label, label_map, numpy_array)
+    sprites = collect_sprites(label_map, numpy_array)
     return (sprites, label_map)
 
 
@@ -364,19 +348,16 @@ def create_sprite_labels_image(sprites, label_map,
     sprite_label_image = Image.fromarray(arrayed_label_map)
 
     return sprite_label_image
-#
-#
-# image = Image.open("optimized_sprite_sheet.png")
-# sprites, label_map = find_sprites(image)
-# sprite_label_image = create_sprite_labels_image(sprites, label_map, (0,0,0,0))
-# sprite_label_image.save('my.png')
-# sprite_label_image.show()
-#
 
-# for label, sprite in sprites.items():
-#     print(f"Sprite ({label}): [{sprite.top_left}, {sprite.bottom_right}] {sprite.width}x{sprite.height}")
-# a = timeit.timeit(stmt=lambda: find_sprites(image), number=1)
-# print(a)
 
-# masked_image.save('my.png')
-# masked_image.show()
+def main():
+    image = Image.open("optimized_sprite_sheet.png")
+    sprites, label_map = find_sprites(image)
+    sprite_label_image = create_sprite_labels_image(sprites, label_map, (0,0,0,0))
+    sprite_label_image.save('my.png')
+    sprite_label_image.show()
+
+
+if __name__ == "__main__":
+    a = timeit.timeit(stmt=lambda: main(), number=1)
+    print(a)
