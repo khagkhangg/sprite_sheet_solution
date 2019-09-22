@@ -74,7 +74,9 @@ def find_sprites(image=None, background_color=None):
     """
 
     def collect_sprites(label_map, numpy_array):
-        """
+        """ Return a dict
+                key: sprite's label
+                value: its corresponding Sprite object
         """
         sprites = {}
 
@@ -145,7 +147,7 @@ def find_sprites(image=None, background_color=None):
                 pixels_to_sprites[value] = key
         return pixels_to_sprites
 
-    def is_new_sprite(current_row, current_column, pixels_matrix, background_color):
+    def is_new_sprite(current_row, current_column, pixels_matrix):
         """ Return False if there is a non-background pixel adjacent to current pixel
         Ignores background pixels.
         """
@@ -184,7 +186,7 @@ def find_sprites(image=None, background_color=None):
             return True
         return False
 
-    def analyze_numpy_array(background_color):
+    def analyze_numpy_array():
         """ Convert image to numpy array then analyze each pixel
 
         @background_color: RGBA or RGB or grayscale formats
@@ -203,7 +205,7 @@ def find_sprites(image=None, background_color=None):
         for row_index, row in enumerate(numpy_array):
             for column_index, column in enumerate(row):
                 if is_new_sprite(row_index, column_index,
-                                 pixels_matrix, background_color):
+                                 pixels_matrix):
                     new_label = sprites_label[-1] + 1
                     pixels_matrix[row_index][column_index].label = new_label
                     sprites_label.append(new_label)
@@ -250,7 +252,7 @@ def find_sprites(image=None, background_color=None):
     # List of pixels label exist inside the map
     sprites_label = [0]
     # Maps of pixels under format matrix and numpy array
-    pixels_matrix, numpy_array = analyze_numpy_array(background_color)
+    pixels_matrix, numpy_array = analyze_numpy_array()
     # Dict of pixels'label corresponding to sprite's label
     pixels_to_sprites = analyze_connected_sprites(connected_sprites)
     # Map of sprites under format 2D-matrix
