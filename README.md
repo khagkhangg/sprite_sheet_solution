@@ -18,22 +18,22 @@
 
 ##### &ensp;&nbsp; SpriteSheet.find_most_common_color(image):
 
-       Find most used color in an Image object
-       arg: image: MUST be an Image object
-       Return most used color in the image with the same format image's mode
+	Find most used color in an Image object
+	arg: image: MUST be an Image object
+	Return most used color in the image with the same format image's mode
 
 ##### &ensp;&nbsp; SpriteSheet_object.create_sprite_labels_image():
 
-       Create a mask image of initial image, and add a bounding box around each sprite,
-       each sprite also have an unique random uniform color.
-       Return an Image object.
+	Create a mask image of initial image, and add a bounding box around each sprite,
+	each sprite also have an unique random uniform color.
+	Return an Image object.
 
 ##### &ensp;&nbsp; SpriteSheet_object.find_sprites():
 
 	Detect sprites inside the image
 	Return a 2D label map and a dict that stores:
 	key: sprite's label
-      	value: its Sprite's object
+	value: its Sprite's object
 	arg: image: MUST be an Image object
 
 ## Installation:
