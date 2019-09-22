@@ -4,7 +4,7 @@
 
 ## Usage:
 #### &ensp; Create a SpriteSheet object using:
-#####&ensp;&nbsp; SpriteSheet(fd, background_color=None):
+##### &ensp;&nbsp; SpriteSheet(fd, background_color=None):
 
              @fd: the name and path (a string) that references an image file in the local file system;
              OR a pathlib.Path object that references an image file in the local file system ; a file object that MUST implement read(), seek(), and tell() methods, and be opened in binary mode;
