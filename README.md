@@ -34,18 +34,18 @@
 The project require Python 3.7+ to run
 
 #### &ensp; FOR USER:
-&ensp;&nbsp; In Terminal, use command:
-&ensp;&nbsp;&nbsp; pip3 install spriteutil
+##### &emsp; In Terminal, use command:
+&emsp;&emsp;&emsp; pip3 install spriteutil
 
 #### &ensp; FOR DEVELOPMENT:
-##### &ensp; Step 1: Clone or Downloads the project, using this command:
-&ensp;&nbsp; git clone http://
-##### &ensp; Step 2: Install required libs and tools, using this command in Terminal:
-&ensp;&nbsp; pip3 install -r requirements.txt
-##### &ensp; Step 3: Edit the source code as you wish.
+##### &emsp; Step 1: Clone or Downloads the project, using this command:
+&emsp;&emsp;&emsp; git clone http://
+##### &emsp; Step 2: Install required libs and tools, using this command in Terminal:
+&emsp;&emsp;&emsp; pip3 install -r requirements.txt
+##### &emsp; Step 3: Edit the source code as you wish.
 
 ### Get help:
 &nbsp; During the usage of the project, if you have any question, please contact me personally at INTEK HCM City or via my Github page: https://github.com/khagkhangg
 
 ### Contributors:
-Khang VU from INTEK Institute,HCM City
+Khang VU from INTEK Institute, HCM City
