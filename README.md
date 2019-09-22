@@ -1,14 +1,6 @@
-What the project does
-Why the project is useful
-How users can get started with the project
-Where users can get help with your project
-Who maintains and contributes to the project
-
 
 ### Intro:
-&nbsp; The project is generally used for detecting sprites inside an sprite sheets, providing bounding box of each sprite.
-&nbsp; It can also detect most used color.
-&nbsp; It can also draw and colorize a mask from the initial image.
+&nbsp; The project is generally used for detecting sprites inside an sprite sheets, providing bounding box of each sprite. It can also detect most used color. It can also draw and colorize a mask from the initial image.
 
 ### Usage:
 &ensp; Create a SpriteSheet object using:
@@ -41,11 +33,11 @@ Who maintains and contributes to the project
 ### Installation:
 The project require Python 3.7+ to run
 
-##### &ensp; FOR USER:
+#### &ensp; FOR USER:
 &ensp;&nbsp; In Terminal, use command:
 &ensp;&nbsp;&nbsp; pip3 install spriteutil
 
-##### &ensp; FOR DEVELOPMENT:
+#### &ensp; FOR DEVELOPMENT:
 ##### &ensp; Step 1: Clone or Downloads the project, using this command:
 &ensp;&nbsp; git clone http://
 ##### &ensp; Step 2: Install required libs and tools, using this command in Terminal:
