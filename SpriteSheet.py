@@ -108,7 +108,10 @@ class SpriteSheet():
             print("Your Image object is invalid! Please try another!")
 
     def find_sprites(self):
-        """ Find sprites
+        """ Detect sprites inside the image
+        Return a 2D label map and a dict that stores:
+            key: sprite's label
+            value: its
 
         @image: MUST be an Image object
         """
