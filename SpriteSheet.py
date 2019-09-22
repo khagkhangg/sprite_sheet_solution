@@ -111,7 +111,7 @@ class SpriteSheet():
         """ Detect sprites inside the image
         Return a 2D label map and a dict that stores:
             key: sprite's label
-            value: its
+            value: its Sprite's object
 
         @image: MUST be an Image object
         """
