@@ -72,7 +72,6 @@ class SpriteSheet():
     def __init__(self, fd, background_color=None):
         self.image_object = self.create_image_object(fd)
         self._background_color = background_color
-        self.sprites, self.label_map = self.find_sprites()
 
     @property
     def background_color(self):
@@ -124,6 +123,9 @@ class SpriteSheet():
 
         def collect_sprites(label_map, numpy_array):
             """
+            Return a dict:
+                key: sprite'label
+                value: corresponding Sprite object
             """
             sprites = {}
 
@@ -319,36 +321,36 @@ class SpriteSheet():
         def colorize(sprite_colors):
             """ Replace each pixel'object in the map by its color
             """
-            for row_index, row in enumerate(self.label_map):
+            for row_index, row in enumerate(label_map):
                 for column_index, column in enumerate(row):
-                    current_pixel_label = self.label_map[row_index][column_index].label
+                    current_pixel_label = label_map[row_index][column_index].label
                     if current_pixel_label not in sprite_colors:
                         # Image mode != "L"
                         if type(background_color) != int:
-                            self.label_map[row_index][column_index] = list(background_color)
+                            label_map[row_index][column_index] = list(background_color)
                         else:
-                            self.label_map[row_index][column_index] = background_color
+                            label_map[row_index][column_index] = background_color
                     else:
                         # Image mode != "L"
                         if len(sprite_colors[current_pixel_label]) != 1:
-                            self.label_map[row_index][column_index] = sprite_colors[current_pixel_label]
+                            label_map[row_index][column_index] = sprite_colors[current_pixel_label]
                         else:
-                            self.label_map[row_index][column_index] = sprite_colors[current_pixel_label][0]
+                            label_map[row_index][column_index] = sprite_colors[current_pixel_label][0]
 
         def add_border(row_range, column_range, label):
             """ Represent bounding box (border) using the label of its sprite
             """
             for row in row_range:
                 for column in column_range:
-                    self.label_map[row][column].label = label
+                    label_map[row][column].label = label
 
         def add_bounding_box():
             """ Return a dictionary with:
                     key: sprite's label
                     value: array of sprite's bounding box's coordinates
             """
-            for label in self.sprites:
-                sprite = self.sprites[label]
+            for label in sprites:
+                sprite = sprites[label]
                 # Gets coordinates of sprite's corners points
                 top_left_column, top_left_row = sprite.top_left
                 bottom_right_column, bottom_right_row  = sprite.bottom_right
@@ -371,7 +373,7 @@ class SpriteSheet():
             # Dict with key:sprite's label and value: it's color
             sprite_colors = {}
 
-            for sprite in self.sprites:
+            for sprite in sprites:
                 # Mix color for each sprite depend on @background_color mode
                 if mode == "RGB":
                     color = [randint(0, 256), randint(0, 256), randint(0, 256)]
@@ -384,6 +386,7 @@ class SpriteSheet():
                 sprite_colors[sprite] = color
             return mode, sprite_colors
 
+        sprites, label_map = self.find_sprites()
         # Image mode and dict of color corresponding to its sprite
         mode, sprite_colors = select_color_for_sprite()
         # Represent bounding boxes using the label of its sprite
@@ -391,6 +394,6 @@ class SpriteSheet():
         # Replace each pixel'object in the map by its color
         colorize(sprite_colors)
         # Turn the map of pixels's color to Image object
-        sprite_label_image = Image.fromarray(array(self.label_map, dtype=uint8))
+        sprite_label_image = Image.fromarray(array(label_map, dtype=uint8))
 
         return sprite_label_image
