@@ -45,9 +45,9 @@ class Sprite():
         """
 
         for element in [label, x1, y1, x2, y2]:
-        	try:
-            	element < 0 or x2 < x1 or y2 < y1:
-                	return False
+            try:
+                if element < 0 or x2 < x1 or y2 < y1:
+                    return False
             except TypeError:
             	return False
         return True
@@ -83,8 +83,11 @@ class SpriteSheet():
     def create_image_object(self, fd):
         try:
             return Image.open(fd)
-        except AttributeError:
-            return fd
+        except (AttributeError, UnicodeDecodeError):
+            try:
+                return Image.open(fd.name)
+            except Exception:
+                return fd
 
     @staticmethod
     def find_most_common_color(image):
