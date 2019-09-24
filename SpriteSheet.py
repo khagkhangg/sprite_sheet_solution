@@ -45,8 +45,11 @@ class Sprite():
         """
 
         for element in [label, x1, y1, x2, y2]:
-            if type(element) is not int or element < 0 or x2 < x1 or y2 < y1:
-                return False
+        	try:
+            	element < 0 or x2 < x1 or y2 < y1:
+                	return False
+            except TypeError:
+            	return False
         return True
 
 
